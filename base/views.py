@@ -23,7 +23,8 @@ def home(request):
     rooms = Room.objects.all()
 
     topics= Topic.objects.all()
-    context = {'rooms':rooms,'topics':topics}
+    room_message = Message.objects.all()
+    context = {'rooms':rooms,'topics':topics,'room_message':room_message}
     return render(request,'base/home.html',context)
 
 def room(request,pk):
@@ -44,6 +45,14 @@ def room(request,pk):
 
     context = {'room': room ,'room_messages':room_messages,'participants':participants}
     return render(request,'base/room.html',context)
+
+
+
+def userprofile(request,pk):
+    user = User.objects.get(id=pk)
+    context={'user':user}
+    return render(request,'base/profile.html',context)
+
 
 def createRoom(request):
     form = RoomForm()
